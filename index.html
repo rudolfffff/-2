@@ -1,151 +1,638 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Համակարգչային վիրուսներ և Կիբերանվտանգություն</title>
-  <style>
-    :root {
-      --bg: #000;
-      --text: #0f0;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Համակարգչային վիրուսներ և կիբերանվտանգություն</title>
+<style>
+  :root {
+    --bg-dark: #000;
+    --text-dark: #0f0;
+    --accent-dark: #00ff33; /* Ярко-зеленый для прогресс-бара */
+    --bg-light: #fff;
+    --text-light: #222;
+    --accent-light: #0066ff;
+  }
+  body {
+    margin: 0; padding: 20px 10px 30px 10px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+    transition: background-color 0.4s, color 0.4s;
+    overflow-x: hidden;
+  }
+  .light-theme {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+  }
+  .light-theme button {
+    border-color: var(--accent-light);
+    color: var(--text-light);
+  }
+  .light-theme button:hover {
+    background-color: var(--accent-light);
+    color: var(--bg-light);
+  }
+  h1, h2 {
+    color: var(--accent-dark);
+    margin-bottom: 0.3em;
+    text-shadow: 0 0 10px var(--accent-dark);
+  }
+  .light-theme h1, .light-theme h2 {
+    color: var(--accent-light);
+    text-shadow: none;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    display: none;
+    animation: fadeInUp 0.6s ease forwards;
+    text-align: center;
+  }
+  .active {
+    display: block;
+  }
+  img {
+    max-width: 60%;
+    border-radius: 12px;
+    box-shadow: 0 0 15px var(--accent-dark);
+    margin: 20px 0 20px 0;
+    transition: box-shadow 0.4s;
+  }
+  .light-theme img {
+    box-shadow: 0 0 12px var(--accent-light);
+  }
+  ul {
+    text-align: left;
+    max-width: 650px;
+    margin: 0 auto 15px auto;
+    padding-left: 1.3em;
+    line-height: 1.4em;
+  }
+  ul li {
+    margin-bottom: 7px;
+  }
+  button {
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0 8px 0 8px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 2px solid var(--accent-dark);
+    background: none;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    user-select: none;
+    outline-offset: 4px;
+  }
+  button:hover {
+    background-color: var(--accent-dark);
+    color: var(--bg-dark);
+  }
+  .light-theme button {
+    border-color: var(--accent-light);
+    color: var(--text-light);
+  }
+  .light-theme button:hover {
+    background-color: var(--accent-light);
+    color: var(--bg-light);
+  }
+  #themeToggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 9999;
+    border-radius: 50%;
+    font-size: 22px;
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--accent-dark);
+    background: none;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .light-theme #themeToggle {
+    border-color: var(--accent-light);
+    color: var(--text-light);
+  }
+  #themeToggle:hover {
+    background-color: var(--accent-dark);
+    color: var(--bg-dark);
+  }
+  .light-theme #themeToggle:hover {
+    background-color: var(--accent-light);
+    color: var(--bg-light);
+  }
+  .page-indicator {
+    margin-top: 15px;
+    font-size: 14px;
+    color: var(--accent-dark);
+    font-weight: 700;
+    text-shadow: 0 0 5px var(--accent-dark);
+  }
+  .light-theme .page-indicator {
+    color: var(--accent-light);
+    text-shadow: none;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    } to {
+      opacity: 1;
+      transform: translateY(0);
     }
+  }
+  /* Responsive */
+  @media (max-width: 720px) {
     body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      transition: 0.3s ease all;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 30px 20px;
-      text-align: center;
-    }
-    img {
-      max-width: 100%;
-      margin: 20px 0;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #0f0;
+      padding-top: 70px;
     }
     button {
-      background: none;
-      border: 2px solid var(--text);
-      color: var(--text);
-      padding: 10px 20px;
-      margin-top: 30px;
-      cursor: pointer;
-      font-size: 16px;
-      border-radius: 8px;
+      font-size: 14px;
+      padding: 10px 18px;
+      margin: 0 6px;
     }
-    .hidden {
-      display: none;
+    h1 {
+      font-size: 1.8em;
     }
-    #themeToggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 100;
+    h2 {
+      font-size: 1.4em;
     }
-  </style>
+    ul {
+      padding-left: 1em;
+      max-width: 90%;
+    }
+    img {
+      max-width: 90%;
+    }
+  }
+
+  /* --- Прогресс-бар --- */
+  #progressBarContainer {
+    width: 90%;
+    max-width: 900px;
+    height: 12px;
+    background: #000; /* полностью черный фон */
+    border-radius: 10px;
+    margin: 0 auto 15px auto;
+    overflow: hidden;
+    box-shadow: 0 0 10px #0f0 inset;
+  }
+  .light-theme #progressBarContainer {
+    background: #222;
+    box-shadow: 0 0 10px var(--accent-light) inset;
+  }
+  #progressBar {
+    height: 100%;
+    width: 0;
+    background: var(--accent-dark);
+    border-radius: 10px 0 0 10px;
+    transition: width 0.4s ease;
+  }
+  .light-theme #progressBar {
+    background: var(--accent-light);
+  }
+
+  /* --- Викторина стили --- */
+  #quiz {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  #quiz h3 {
+    color: var(--accent-dark);
+    margin-bottom: 10px;
+  }
+  .light-theme #quiz h3 {
+    color: var(--accent-light);
+  }
+  .question {
+    margin-bottom: 20px;
+  }
+  .options {
+    list-style: none;
+    padding-left: 0;
+  }
+  .options li {
+    margin-bottom: 8px;
+  }
+  .options li label {
+    cursor: pointer;
+  }
+  #submitQuiz {
+    display: block;
+    margin: 25px auto 10px auto;
+    padding: 14px 30px;
+    font-size: 18px;
+  }
+  #quizResult {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 20px;
+    color: var(--accent-dark);
+  }
+  .light-theme #quizResult {
+    color: var(--accent-light);
+  }
+
+  /* --- Салют и анимация для 8-й страницы --- */
+  #fireworksCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+  }
+  #finalMessage {
+    font-size: 3.5em;
+    font-weight: 900;
+    color: var(--accent-dark);
+    text-shadow: 0 0 15px var(--accent-dark);
+    margin-top: 100px;
+    opacity: 0;
+    animation: flyIn 1.5s ease forwards;
+    position: relative;
+    z-index: 9999;
+  }
+  .light-theme #finalMessage {
+    color: var(--accent-light);
+    text-shadow: 0 0 10px var(--accent-light);
+  }
+  @keyframes flyIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-200px) scale(0.5);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(20px) scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* --- Анимация микробов на странице 3 --- */
+  .microbe-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    animation: moveMicrobes 4s ease-in-out infinite alternate;
+  }
+  .microbe-icon {
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    animation: sway 3s ease-in-out infinite;
+  }
+  .microbe-icon.right {
+    animation-delay: 1.5s;
+  }
+
+  @keyframes moveMicrobes {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(20px); }
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(12deg); }
+  }
+</style>
 </head>
 <body>
-  <button id="themeToggle">🌙</button>
 
-  <div class="container" id="page0">
-    <h1>Համակարգչային վիրուսների դեմ պայքարի մեթոդներն ու ծրագրային միջոցները</h1>
-    <p>Ադամյան Արեգ<br>Քանքանյան Անահիտ<br>Հակոբյան Ռուդոլֆ<br>Մեսրոպյան Արամ<br>Մկրտչյան Վահե<br>Վերդիյան Մարի<br>Հովհաննիսյան Զոյա</p>
-    <p><strong>Ղեկավար՝ Գալստյան Աննա</strong></p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Computer_security.png/640px-Computer_security.png" alt="Ներկայացում">
-    <button onclick="nextPage()">Հաջորդ էջ</button>
+<button id="themeToggle" title="Փոխել թեման">🌙</button>
+
+<div id="progressBarContainer" aria-label="Էջի առաջընթաց">
+  <div id="progressBar"></div>
+</div>
+
+<div class="container active" id="page0" tabindex="0" aria-label="Ներկայացում">
+  <h1>Համակարգչային վիրուսների դեմ պայքարի մեթոդներ</h1>
+  <p>Աշխատանքը կազմել են՝ Արեգ Ադամյան, Անահիտ Քանքանյան, Ռուդոլֆ Հակոբյան,<br>Արամ Մեսրոպյան, Վահե Մկրտչյան, Մարի Վերդյան, Զոյա Հովհաննիսյան</p>
+  <p><strong>Ղեկավար՝ Գալստյան Աննա</strong></p>
+  <img src="https://img.freepik.com/free-photo/cybersecurity-concept-collage-design_23-2151877155.jpg?semt=ais_hybrid&w=740" alt="Կիբերանվտանգության պատկեր" loading="lazy" />
+  <p class="page-indicator">Էջ 1 / 8</p>
+  <button aria-label="Հաջորդ էջ" onclick="nextPage()">Հաջորդ էջ</button>
+</div>
+
+<div class="container" id="page1" tabindex="0" aria-label="Ի՞նչ է համակարգչային վիրուսը">
+  <h2>Ի՞նչ է համակարգչային վիրուսը</h2>
+  <p>Համակարգչային վիրուսը վնասակար ծրագիր է, որն ունակ է ինքնաբազմանալ և տեղակայվել տարբեր ծրագրերում՝ առանց օգտվողի տեղեկության:</p>
+  <p>Վիրուսների ներթափանցման հիմնական ուղիներն են՝ վարակված կրիչները, համակարգչային ցանցերը, էլեկտրոնային փոստը և ինտերնետը:</p>
+  <img src="https://static.tildacdn.com/tild6238-6338-4363-b030-373839656432/db1c3f00209006538eb0.jpg" alt="Վիրուսի ներթափանցման ուղիներ" loading="lazy" />
+  <p class="page-indicator">Էջ 2 / 8</p>
+  <button aria-label="Նախորդ էջ" onclick="prevPage()">Նախորդ էջ</button>
+  <button aria-label="Հաջորդ էջ" onclick="nextPage()">Հաջորդ էջ</button>
+</div>
+
+<div class="container" id="page2" tabindex="0" aria-label="Վիրուսների առաջացման նշաններ">
+  <h2>
+    <span class="microbe-container" aria-label="Միկրոբները տանում են վերնագիրը">
+      <img class="microbe-icon left" src="https://cdn-icons-png.flaticon.com/512/2871/2871075.png" alt="Միկրոբ" />
+      Վիրուսների առաջացման նշաններ
+      <img class="microbe-icon right" src="https://cdn-icons-png.flaticon.com/512/2871/2871075.png" alt="Միկրոբ" />
+    </span>
+  </h2>
+  <ul>
+    <li>Աշխատանքային արդյունավետության զգալի դանդաղում</li>
+    <li>Հանկարծակի ծրագրերի խափանումներ և սառեցումներ</li>
+    <li>Սխալի անսպասելի հաղորդագրություններ</li>
+    <li>Կարգավորումների անսպասելի փոփոխություններ</li>
+    <li>Հաճախակի գովազդային պատուհանների հայտնվել</li>
+    <li>Նոր, անհայտ ծրագրերի հայտնվել համակարգչում</li>
+    <li>Ֆայլերի ջնջում կամ փոփոխություն առանց ձեր ներգործության</li>
+    <li>Կոշտ սկավառակի և ցանցի արտասովոր ակտիվություն</li>
+  </ul>
+  <img src="https://media.istockphoto.com/id/1048265360/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B2%D1%8B%D0%BC%D0%BE%D0%B3%D0%B0%D1%82%D0%B5%D0%BB%D0%B5%D0%B9-%D0%B8-%D0%BA%D0%BE%D0%B4-%D0%B2%D0%B7%D0%BB%D0%BE%D0%BC%D0%B0-%D1%84%D0%BE%D0%BD.jpg?s=612x612&w=0&k=20&c=tJY5MunPzURi9JoIOpiB1-otmkjr6nBcFqmOGroVAm8=" alt="Վիրուսների ախտանիշեր" loading="lazy" />
+  <p class="page-indicator">Էջ 3 / 8</p>
+  <button aria-label="Նախորդ էջ" onclick="prevPage()">Նախորդ էջ</button>
+  <button aria-label="Հաջորդ էջ" onclick="nextPage()">Հաջորդ էջ</button>
+</div>
+
+<div class="container" id="page3" tabindex="0" aria-label="Վիրուսների տեսակները">
+  <h2>Համակարգչային վիրուսների տեսակները</h2>
+  <ul>
+    <li>Պայմանականորեն անվտանգ</li>
+    <li>Վտանգավոր</li>
+    <li>Հատկապես վտանգավոր</li>
+    <li>Ֆայլային</li>
+    <li>Սկավառակի բեռնման հատվածներում</li>
+    <li>Մակրովիրուսներ</li>
+    <li>Ցանցային</li>
+  </ul>
+  <img src="https://russian7.ru/wp-content/uploads/2023/08/5544785.jpg" alt="Վիրուսների տեսակներ" loading="lazy" />
+  <p class="page-indicator">Էջ 4 / 8</p>
+  <button aria-label="Նախորդ էջ" onclick="prevPage()">Նախորդ էջ</button>
+  <button aria-label="Հաջորդ էջ" onclick="nextPage()">Հաջորդ էջ</button>
+</div>
+
+<div class="container" id="page4" tabindex="0" aria-label="Վիրուսների առավել վտանգավոր տեսակները">
+  <h2>Որոշ առավել վտանգավոր վիրուսներ</h2>
+  <ul>
+    <li>Տռոյան</li>
+    <li>Rootkit</li>
+    <li>Գովազդային վիրուս</li>
+    <li>Backdoor</li>
+    <li>Կեղծ հակավիրուս</li>
+    <li>Exploit</li>
+    <li>Botnet</li>
+    <li>Մակրովիրուսներ</li>
+  </ul>
+  <img src="https://www.kv.by/sites/default/files/pictures/mainimage/2017/08/b367f22886b3f27028c66afa82c2800b.jpg" alt="Վիրուսների տեսակներ" loading="lazy" />
+  <p class="page-indicator">Էջ 5 / 8</p>
+  <button aria-label="Նախորդ էջ" onclick="prevPage()">Նախորդ էջ</button>
+  <button aria-label="Հաջորդ էջ" onclick="nextPage()">Հաջորդ էջ</button>
+</div>
+
+<div class="container" id="page5" tabindex="0" aria-label="Վիրուսների դեմ պայքարի մեթոդները">
+  <h2>Մեթոդներ վիրուսների դեմ պայքարելու համար</h2>
+  <ul>
+    <li>Լիցենզավորված հակավիրուսների տեղադրում և պարբերաբար թարմացում</li>
+    <li>Չբացել կասկածելի ֆայլեր և չհամակարգել նրանց</li>
+    <li>Չանցնել անծանոթ հղումներով</li>
+    <li>Անձնական տվյալներ չփոխանցել երրորդ անձանց</li>
+    <li>Սարքավորումների սպասարկում միայն գրանցված կենտրոններում</li>
+  </ul>
+  <p><strong>Հիշեք՝ անվտանգությունն առաջին հերթին ձեր ձեռքում է։</strong></p>
+  <p class="page-indicator">Էջ 6 / 8</p>
+  <button aria-label="Նախորդ էջ" onclick="prevPage()">Նախորդ էջ</button>
+  <button aria-label="Հաջորդ էջ" onclick="nextPage()">Հաջորդ էջ</button>
+</div>
+
+<div class="container" id="page6" tabindex="0" aria-label="Վիկտորինա">
+  <h2>Վիկտորինա</h2>
+  <div id="quiz" role="region" aria-live="polite" aria-label="Վիրուսների մասին հարցեր">
+    <div class="question" data-question="1">
+      <h3>1. Ինչ է համակարգչային վիրուսը։</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q1" value="wrong"> Ծրագիր՝ որը չի կրկնօրինակում իրեն</label></li>
+        <li><label><input type="radio" name="q1" value="correct"> Ծրագիր՝ որը կարող է ինքնաբազմանալ</label></li>
+      </ul>
+    </div>
+    <div class="question" data-question="2">
+      <h3>2. Վիրուսների հիմնական ներթափանցման ուղիներն են՝</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q2" value="correct"> Վարակված կրիչներ, էլփոստ, ինտերնետ</label></li>
+        <li><label><input type="radio" name="q2" value="wrong"> Լիցենզավորված ծրագրեր</label></li>
+      </ul>
+    </div>
+    <div class="question" data-question="3">
+      <h3>3. Ո՞րն է առավել վտանգավոր վիրուսների տեսակներից։</h3>
+      <ul class="options">
+        <li><label><input type="radio" name="q3" value="wrong"> Պայմանականորեն անվտանգ</label></li>
+        <li><label><input type="radio" name="q3" value="correct"> Հատկապես վտանգավոր</label></li>
+        <li><label><input type="radio" name="q3" value="wrong"> Ֆայլային</label></li>
+      </ul>
+    </div>
+    <button id="submitQuiz" aria-label="Ուղարկել վիկտորինան">Ուղարկել</button>
+    <div id="quizResult" aria-live="polite"></div>
   </div>
+  <p class="page-indicator">Էջ 7 / 8</p>
+  <button aria-label="Նախորդ էջ" onclick="prevPage()">Նախորդ էջ</button>
+  <button aria-label="Հաջորդ էջ" onclick="nextPage()">Հաջորդ էջ</button>
+</div>
 
-  <div class="container hidden" id="page1">
-    <h2>Ի՞նչ է համակարգչային վիրուսը</h2>
-    <p>Համակարգչային վիրուսներ անվանվում է այն ծրագիրը, որը ունակ է ստեղծել իր սեփական կրկնօրինակը և տեղակայել դրանք տարբեր համակարգչային ծրագրերի մեջ, առանց օգտագործողի իմացության կամ թույլտվության։</p>
-    <p>Վիրուսների ներթափանցման ուղիները․ կրիչ, ցանց, էլ․փոստ, ինտերնետ։</p>
-    <img src="https://www.avast.com/images/hero/avast/what-is-a-computer-virus-1x.png" alt="Վիրուս">
-    <button onclick="nextPage()">Հաջորդ էջ</button>
-  </div>
+<div class="container" id="page7" tabindex="0" aria-label="Շնորհակալություն">
+  <canvas id="fireworksCanvas"></canvas>
+  <h1 id="finalMessage">🦠🦠🦠,<br>շնորհակալություն ուշադրության համար!</h1>
+  <p class="page-indicator">Էջ 8 / 8</p>
+  <button aria-label="Նախորդ էջ" onclick="prevPage()">Նախորդ էջ</button>
+</div>
 
-  <div class="container hidden" id="page2">
-    <h2>Վիրուսների առաջացման նշաններ</h2>
-    <ul style="text-align:left">
-      <li>Աշխատանքային արդյունավետության դանդաղում</li>
-      <li>Խափանումներ և սառեցումներ</li>
-      <li>Սխալի հաղորդագրություններ</li>
-      <li>Կարգավորումների փոփոխություններ</li>
-      <li>Գովազդներ և անհայտ ծրագրեր</li>
-      <li>Նոր ֆայլեր/պանակներ, ջնջված ֆայլեր</li>
-      <li>Կոշտ սկավառակի կամ ցանցի արտասովոր ակտիվություն</li>
-    </ul>
-    <img src="https://i.imgur.com/bUkmEoo.png" alt="Նշաններ">
-    <button onclick="nextPage()">Հաջորդ էջ</button>
-  </div>
+<script>
+  let currentPage = 0;
+  const totalPages = 8;
+  const containers = document.querySelectorAll('.container');
+  const progressBar = document.getElementById('progressBar');
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
 
-  <div class="container hidden" id="page3">
-    <h2>Վիրուսների տեսակները</h2>
-    <p><strong>Ըստ վտանգի աստիճանի․</strong><br>Պայմանականորեն անվտանգ, Վտանգավոր, Հատկապես վտանգավոր</p>
-    <p><strong>Ըստ բնակավայրի․</strong><br>Ֆայլային, Բեռնման հատվածներում, Մակրովիրուսներ, Ցանցային</p>
-    <img src="https://i.imgur.com/YemlUUi.png" alt="Տեսակներ">
-    <button onclick="nextPage()">Հաջորդ էջ</button>
-  </div>
+  function updateProgressBar() {
+    const percent = ((currentPage + 1) / totalPages) * 100;
+    progressBar.style.width = percent + '%';
+  }
 
-  <div class="container hidden" id="page4">
-    <h2>Ավելի վտանգավոր վիրուսներ</h2>
-    <ul style="text-align:left">
-      <li>Տռոյան</li>
-      <li>Rootkit</li>
-      <li>Գովազդային վիրուս</li>
-      <li>Որդ</li>
-      <li>Backdoor</li>
-      <li>Բաններային արգելափակիչ</li>
-      <li>Կեղծ հակավիրուս</li>
-      <li>Exploit, Botnet, Սկրիպտ վիրուս</li>
-    </ul>
-    <img src="https://i.imgur.com/oX1R9S4.jpg" alt="Վտանգավոր վիրուսներ">
-    <button onclick="nextPage()">Հաջորդ էջ</button>
-  </div>
+  function showPage(index) {
+    if (index < 0 || index >= totalPages) return;
+    containers.forEach((c, i) => {
+      c.classList.toggle('active', i === index);
+    });
+    currentPage = index;
+    updateProgressBar();
+    containers[index].focus();
 
-  <div class="container hidden" id="page5">
-    <h2>Պայքարի մեթոդներ</h2>
-    <ul style="text-align:left">
-      <li>Լիցենզավորված ծրագրերի տեղադրում և թարմացում</li>
-      <li>Չբացել կասկածելի ֆայլերը</li>
-      <li>Չանցնել անծանոթ հղումներով</li>
-      <li>Գաղտնաբառեր չփոխանցել երրորդ անձանց</li>
-      <li>Սարքավորումները սպասարկել միայն գրանցված կենտրոններում</li>
-    </ul>
-    <img src="https://i.imgur.com/TPLzMRX.png" alt="Պաշտպանություն">
-    <p><strong>Շնորհակալություն ուշադրության համար 💻🛡️</strong></p>
-  </div>
+    if (currentPage === totalPages - 1) {
+      startFireworks();
+    } else {
+      stopFireworks();
+    }
+  }
 
-  <script>
-    let currentPage = 0;
-    function nextPage() {
-      document.getElementById("page" + currentPage).classList.add("hidden");
-      currentPage++;
-      if (currentPage <= 5) {
-        document.getElementById("page" + currentPage).classList.remove("hidden");
+  function nextPage() {
+    if (currentPage < totalPages - 1) {
+      showPage(currentPage + 1);
+    }
+  }
+  function prevPage() {
+    if (currentPage > 0) {
+      showPage(currentPage - 1);
+    }
+  }
+
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('light-theme');
+    themeToggle.textContent = body.classList.contains('light-theme') ? '🌞' : '🌙';
+  });
+
+  // Викторина
+  const submitQuizBtn = document.getElementById('submitQuiz');
+  const quizResult = document.getElementById('quizResult');
+
+  submitQuizBtn.addEventListener('click', () => {
+    const answers = [
+      {q: 'q1', correct: 'correct'},
+      {q: 'q2', correct: 'correct'},
+      {q: 'q3', correct: 'correct'},
+    ];
+    let score = 0;
+    for (const ans of answers) {
+      const selected = document.querySelector(`input[name="${ans.q}"]:checked`);
+      if (selected && selected.value === ans.correct) {
+        score++;
       }
     }
+    quizResult.textContent = `Ձեր արդյունքը՝ ${score} / ${answers.length}`;
+    quizResult.style.opacity = '0';
+    setTimeout(() => {
+      quizResult.style.opacity = '1';
+    }, 100);
+  });
 
-    const themeToggle = document.getElementById("themeToggle");
-    let darkMode = true;
+  showPage(0);
 
-    themeToggle.addEventListener("click", () => {
-      darkMode = !darkMode;
-      if (darkMode) {
-        document.documentElement.style.setProperty('--bg', '#000');
-        document.documentElement.style.setProperty('--text', '#0f0');
-        themeToggle.textContent = "🌙";
+  // --- Салют и анимация для 8-й страницы ---
+  const canvas = document.getElementById('fireworksCanvas');
+  const ctx = canvas.getContext('2d');
+  let fireworks = [];
+  let animationFrameId;
+  let isRunning = false;
+  let fireworksInterval;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Firework {
+    constructor(x, y, targetY, color) {
+      this.x = x;
+      this.y = y;
+      this.targetY = targetY;
+      this.color = color;
+      this.speed = 5 + Math.random() * 3;
+      this.exploded = false;
+      this.particles = [];
+    }
+    update() {
+      if (!this.exploded) {
+        this.y -= this.speed;
+        if (this.y <= this.targetY) {
+          this.exploded = true;
+          this.createParticles();
+        }
       } else {
-        document.documentElement.style.setProperty('--bg', '#fff');
-        document.documentElement.style.setProperty('--text', '#000');
-        themeToggle.textContent = "☀️";
+        this.particles.forEach(p => p.update());
+        this.particles = this.particles.filter(p => !p.done);
       }
+    }
+    draw(ctx) {
+      if (!this.exploded) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      } else {
+        this.particles.forEach(p => p.draw(ctx));
+      }
+    }
+    createParticles() {
+      const colors = ['#00ff33', '#ff0000', '#ffff00', '#00ffff', '#ff00ff', '#ffffff'];
+      for (let i = 0; i < 50; i++) {
+        this.particles.push(new Particle(this.x, this.y, colors[Math.floor(Math.random() * colors.length)]));
+      }
+    }
+  }
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      this.speedX = (Math.random() - 0.5) * 8;
+      this.speedY = (Math.random() - 0.5) * 8;
+      this.gravity = 0.15;
+      this.alpha = 1;
+      this.done = false;
+    }
+    update() {
+      this.speedY += this.gravity;
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.alpha -= 0.03;
+      if (this.alpha <= 0) this.done = true;
+    }
+    draw(ctx) {
+      ctx.save();
+      ctx.globalAlpha = this.alpha;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 10;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    fireworks.forEach(fw => {
+      fw.update();
+      fw.draw(ctx);
     });
-  </script>
+    fireworks = fireworks.filter(fw => !fw.exploded || fw.particles.length > 0);
+    if (isRunning) animationFrameId = requestAnimationFrame(animate);
+  }
+  function startFireworks() {
+    if (isRunning) return;
+    isRunning = true;
+    fireworks.push(new Firework(Math.random() * canvas.width, canvas.height, 100 + Math.random() * 200, '#00ff33'));
+    animate();
+    fireworksInterval = setInterval(() => {
+      fireworks.push(new Firework(Math.random() * canvas.width, canvas.height, 100 + Math.random() * 200,
+        ['#00ff33', '#ff0000', '#ffff00', '#00ffff', '#ff00ff', '#ffffff'][Math.floor(Math.random() * 6)]));
+    }, 500);
+  }
+  function stopFireworks() {
+    isRunning = false;
+    fireworks = [];
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    clearInterval(fireworksInterval);
+  }
+</script>
+
 </body>
 </html>
