@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Համակարգչային վիրուսներ և Կիբերանվտանգություն</title>
+  <style>
+    :root {
+      --bg: #000;
+      --text: #0f0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: 0.3s ease all;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #0f0;
+    }
+    button {
+      background: none;
+      border: 2px solid var(--text);
+      color: var(--text);
+      padding: 10px 20px;
+      margin-top: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 8px;
+    }
+    .hidden {
+      display: none;
+    }
+    #themeToggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <button id="themeToggle">🌙</button>
+
+  <div class="container" id="page0">
+    <h1>Համակարգչային վիրուսների դեմ պայքարի մեթոդներն ու ծրագրային միջոցները</h1>
+    <p>Ադամյան Արեգ<br>Քանքանյան Անահիտ<br>Հակոբյան Ռուդոլֆ<br>Մեսրոպյան Արամ<br>Մկրտչյան Վահե<br>Վերդիյան Մարի<br>Հովհաննիսյան Զոյա</p>
+    <p><strong>Ղեկավար՝ Գալստյան Աննա</strong></p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Computer_security.png/640px-Computer_security.png" alt="Ներկայացում">
+    <button onclick="nextPage()">Հաջորդ էջ</button>
+  </div>
+
+  <div class="container hidden" id="page1">
+    <h2>Ի՞նչ է համակարգչային վիրուսը</h2>
+    <p>Համակարգչային վիրուսներ անվանվում է այն ծրագիրը, որը ունակ է ստեղծել իր սեփական կրկնօրինակը և տեղակայել դրանք տարբեր համակարգչային ծրագրերի մեջ, առանց օգտագործողի իմացության կամ թույլտվության։</p>
+    <p>Վիրուսների ներթափանցման ուղիները․ կրիչ, ցանց, էլ․փոստ, ինտերնետ։</p>
+    <img src="https://www.avast.com/images/hero/avast/what-is-a-computer-virus-1x.png" alt="Վիրուս">
+    <button onclick="nextPage()">Հաջորդ էջ</button>
+  </div>
+
+  <div class="container hidden" id="page2">
+    <h2>Վիրուսների առաջացման նշաններ</h2>
+    <ul style="text-align:left">
+      <li>Աշխատանքային արդյունավետության դանդաղում</li>
+      <li>Խափանումներ և սառեցումներ</li>
+      <li>Սխալի հաղորդագրություններ</li>
+      <li>Կարգավորումների փոփոխություններ</li>
+      <li>Գովազդներ և անհայտ ծրագրեր</li>
+      <li>Նոր ֆայլեր/պանակներ, ջնջված ֆայլեր</li>
+      <li>Կոշտ սկավառակի կամ ցանցի արտասովոր ակտիվություն</li>
+    </ul>
+    <img src="https://i.imgur.com/bUkmEoo.png" alt="Նշաններ">
+    <button onclick="nextPage()">Հաջորդ էջ</button>
+  </div>
+
+  <div class="container hidden" id="page3">
+    <h2>Վիրուսների տեսակները</h2>
+    <p><strong>Ըստ վտանգի աստիճանի․</strong><br>Պայմանականորեն անվտանգ, Վտանգավոր, Հատկապես վտանգավոր</p>
+    <p><strong>Ըստ բնակավայրի․</strong><br>Ֆայլային, Բեռնման հատվածներում, Մակրովիրուսներ, Ցանցային</p>
+    <img src="https://i.imgur.com/YemlUUi.png" alt="Տեսակներ">
+    <button onclick="nextPage()">Հաջորդ էջ</button>
+  </div>
+
+  <div class="container hidden" id="page4">
+    <h2>Ավելի վտանգավոր վիրուսներ</h2>
+    <ul style="text-align:left">
+      <li>Տռոյան</li>
+      <li>Rootkit</li>
+      <li>Գովազդային վիրուս</li>
+      <li>Որդ</li>
+      <li>Backdoor</li>
+      <li>Բաններային արգելափակիչ</li>
+      <li>Կեղծ հակավիրուս</li>
+      <li>Exploit, Botnet, Սկրիպտ վիրուս</li>
+    </ul>
+    <img src="https://i.imgur.com/oX1R9S4.jpg" alt="Վտանգավոր վիրուսներ">
+    <button onclick="nextPage()">Հաջորդ էջ</button>
+  </div>
+
+  <div class="container hidden" id="page5">
+    <h2>Պայքարի մեթոդներ</h2>
+    <ul style="text-align:left">
+      <li>Լիցենզավորված ծրագրերի տեղադրում և թարմացում</li>
+      <li>Չբացել կասկածելի ֆայլերը</li>
+      <li>Չանցնել անծանոթ հղումներով</li>
+      <li>Գաղտնաբառեր չփոխանցել երրորդ անձանց</li>
+      <li>Սարքավորումները սպասարկել միայն գրանցված կենտրոններում</li>
+    </ul>
+    <img src="https://i.imgur.com/TPLzMRX.png" alt="Պաշտպանություն">
+    <p><strong>Շնորհակալություն ուշադրության համար 💻🛡️</strong></p>
+  </div>
+
+  <script>
+    let currentPage = 0;
+    function nextPage() {
+      document.getElementById("page" + currentPage).classList.add("hidden");
+      currentPage++;
+      if (currentPage <= 5) {
+        document.getElementById("page" + currentPage).classList.remove("hidden");
+      }
+    }
+
+    const themeToggle = document.getElementById("themeToggle");
+    let darkMode = true;
+
+    themeToggle.addEventListener("click", () => {
+      darkMode = !darkMode;
+      if (darkMode) {
+        document.documentElement.style.setProperty('--bg', '#000');
+        document.documentElement.style.setProperty('--text', '#0f0');
+        themeToggle.textContent = "🌙";
+      } else {
+        document.documentElement.style.setProperty('--bg', '#fff');
+        document.documentElement.style.setProperty('--text', '#000');
+        themeToggle.textContent = "☀️";
+      }
+    });
+  </script>
+</body>
+</html>
